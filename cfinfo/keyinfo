@@ -1,0 +1,8 @@
+首先运行起来项目之后，需要将model中的类映射到mysql数据库中，操作如下：
+1 修改数据库配置文件db.conf，将其按照自己环境的配置进行修改
+2 进入mysql命令行模式，创建codingant数据库
+  create database codingant ;
+3 使用PyCharm IDE 选择Tools->Run manage.py Task..
+4 底部弹出shell框 直接输入makemigratetions
+5 输入migrate
+6 输入sqlmigrate employees（在settings.py中注册的项目名称） 0001 则可看见db.sqlite3的信息
