@@ -2,10 +2,10 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Button, Div
 from django.contrib.auth.forms import AuthenticationForm
 from django.forms import ModelForm, Textarea
-
+from suit_redactor.widgets import RedactorWidget
 from employees.constants import *
 from employees.models import Resume, Education, WorkExperience, Project, Certification, Skill, TrainingExperience, \
-    IdCard, Card, ContactPerson, Salary, WorkProject, RegularMeeting
+    IdCard, Card, ContactPerson, Salary, WorkProject, RegularMeeting, DailyReport
 
 
 class LoginForm(AuthenticationForm):
@@ -64,7 +64,8 @@ class ResumeForm(ModelForm):
             )
         )
 
-    class Meta:
+
+class Meta:
         model = Resume
         fields = ['gender', 'native_place', 'nationality', 'birth_date', 'marital_status',
                   'target_position', 'expect_salary', 'expect_salary_intern',
@@ -385,44 +386,44 @@ class ContactForm(ModelForm):
         exclude = ['user']
 
 
-class WorkProjectFormSetHelper(FormHelper):
-    def __init__(self, *args, **kwargs):
-        super(WorkProjectFormSetHelper, self).__init__(*args, **kwargs)
-        self.form_tag = False
-
-        self.layout = Layout(
-            Div(
-                Div('name', css_class='col-md-8'),
-                Div('start_time', css_class='col-md-2'),
-                Div('end_time', css_class='col-md-2'),
-                css_class='row'
-            ),
-            Div(
-                Div('key_skill', css_class='col-md-12'),
-                css_class='row'
-            ),
-            Div(
-                Div('description', css_class='col-md-12'),
-                css_class='row'
-            ),
-            Button('button', '删除', css_class='btn btn-outline-danger btn-block btn-delete'),
-            Div(
-                Div('DELETE'),
-                css_class='row',
-                hidden='true'
-            )
-        )
-        self.all().wrap_together(Div, css_class=PROJROM_FORMS_PREFIX)
+# class WorkProjectFormSetHelper(FormHelper):
+#     def __init__(self, *args, **kwargs):
+#         super(WorkProjectFormSetHelper, self).__init__(*args, **kwargs)
+#         self.form_tag = False
+#
+#         self.layout = Layout(
+#             Div(
+#                 Div('name', css_class='col-md-8'),
+#                 Div('start_time', css_class='col-md-2'),
+#                 Div('end_time', css_class='col-md-2'),
+#                 css_class='row'
+#             ),
+#             Div(
+#                 Div('key_skill', css_class='col-md-12'),
+#                 css_class='row'
+#             ),
+#             Div(
+#                 Div('description', css_class='col-md-12'),
+#                 css_class='row'
+#             ),
+#             Button('button', '删除', css_class='btn btn-outline-danger btn-block btn-delete'),
+#             Div(
+#                 Div('DELETE'),
+#                 css_class='row',
+#                 hidden='true'
+#             )
+#         )
+#         self.all().wrap_together(Div, css_class=PROJROM_FORMS_PREFIX)
 
 
 class WorkProjectForm(ModelForm):
     class Meta:
         model = WorkProject
         fields = ('name', 'description', 'key_skill', 'start_time', 'end_time')
-        widgets = {
-            'key_skill': Textarea(attrs={'rows': 3}),
-            'description': Textarea(attrs={'rows': 3}),
-        }
+        # widgets = {
+        #     'key_skill': Textarea(attrs={'rows': 3}),
+        #     'description': Textarea(attrs={'rows': 3}),
+        # }
 
 
 class SalaryFormSetHelper(FormHelper):
@@ -470,8 +471,14 @@ class DailyReportFormSetHelper(FormHelper):
             Div(
                 Div('header', css_class='col-md-4'),
                 Div('create_time', css_class='col-md-4'),
+                css_class='row'
+            ),
+            Div(
                 Div('report_content', css_class='col-md-2'),
                 Div('assess', css_class='col-md-4'),
+                css_class='row'
+            ),
+            Div(
                 Div('score', css_class='col-md-2'),
                 css_class='row'
             ),
@@ -488,10 +495,11 @@ class DailyReportFormSetHelper(FormHelper):
 
 class DailyReportForm(ModelForm):
     class Meta:
-        model = WorkProject
-        exclude = ['user']
+        model = DailyReport
+        fields = ('user', 'header', 'create_time', 'report_content', 'assess', 'score')
         widgets = {
-
+            'report_content': RedactorWidget(editor_options={'lang': 'en'}),
+            'assess': RedactorWidget(editor_options={'lang': 'en'})
         }
 
 
@@ -506,8 +514,11 @@ class RegularMeetingFormSetHelper(FormHelper):
                 Div('specker', css_class='col-md-4'),
                 Div('participant', css_class='col-md-2'),
                 Div('meeting_time', css_class='col-md-4'),
-                Div('main_content', css_class='col-md-2'),
                 Div('enclosure', css_class='col-md-2'),
+                css_class='row'
+            ),
+            Div(
+                Div('main_content', css_class='col-md-2'),
                 css_class='row'
             ),
             Button('button', '删除', css_class='btn btn-outline-danger btn-block btn-delete'),
@@ -526,5 +537,5 @@ class RegularMeetingForm(ModelForm):
         model = RegularMeeting
         exclude = ['user']
         widgets = {
-
+            'main_content': RedactorWidget(editor_options={'lang': 'en'})
         }

@@ -7,7 +7,7 @@ from django.forms import ModelForm
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.html import format_html
-
+from employees.forms import DailyReportForm, RegularMeetingForm
 from employees.models import Resume, Education, WorkExperience, Project, Certification, Skill, Interview, Activity, \
     Employee, IdCard, Card, ContactPerson, Comment, TrainingExperience, InterviewResume, WorkProject, Salary, DailyReport, RegularMeeting
 
@@ -122,14 +122,48 @@ class EmployeeAdmin(ModelAdmin):
     view_info.short_description = '查看资料'
 
 
-class AdminFormTinyMCE(admin.ModelAdmin):
-    class Media:
-        js = (
-            "//cdn.bootcss.com/jquery/2.2.4/jquery.min.js",
-            "/static/js/tinymce/jquery.tinymce.min.js",
-            "/static/js/tinymce/tinymce.min.js",
-            "/static/js/tinymce/textareas.js",
-        )
+class WorkProjectAdmin(ModelAdmin):
+    list_display = ('name', 'start_time', 'end_time')
+
+
+class SalaryAdmin(ModelAdmin):
+    list_display = ('user', 'salary_level', 'salary_proportion')
+
+
+class DailyReportAdmin(ModelAdmin):
+    form = DailyReportForm
+    exclude = None
+    list_display = ('user', 'header', 'create_time')
+    # fieldsets = (
+    #     ['Basic', {
+    #         'fields': ('user', 'header', 'create_time',),
+    #     }],
+    #     ['Cotent', {
+    #         'classes': ('full-width',),  # CSS
+    #         'fields': ('report_content', 'assess',),
+    #     }],
+    #     [None, {
+    #         'fields': ('score',),
+    #     }],
+    # )
+
+
+class RegularMeetingAdmin(ModelAdmin):
+    form = RegularMeetingForm
+    exclude = None
+    list_display = ('specker', 'title', 'meeting_time')
+    # fieldsets = (
+    #     [None, {
+    #         'fields': ('title', 'specker', 'participant', 'meeting_time',),
+    #     }],
+    #     [None, {
+    #         'classes': ('full-width',),  # CSS
+    #         'fields': ('main_content',),
+    #     }],
+    #     [None, {
+    #         'fields': ('enclosure',),
+    #     }],
+    # )
 
 
 admin.site.unregister(User)
@@ -149,6 +183,7 @@ admin.site.register(Card)
 admin.site.register(ContactPerson)
 admin.site.register(Comment)
 admin.site.register(TrainingExperience)
-admin.site.register(WorkProject)
-admin.site.register(Salary)
-admin.site.register([DailyReport, RegularMeeting], AdminFormTinyMCE)
+admin.site.register(Salary, SalaryAdmin)
+admin.site.register(WorkProject, WorkProjectAdmin)
+admin.site.register(DailyReport, DailyReportAdmin)
+admin.site.register(RegularMeeting, RegularMeetingAdmin)

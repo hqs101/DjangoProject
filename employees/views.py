@@ -11,7 +11,7 @@ from employees.constants import EDUCATION_FORMS_PREFIX, WORK_EXPERIENCE_FORMS_PR
 from employees.forms import ResumeForm, EducationForm, EducationFormSetHelper, WorkExperienceForm, \
     WorkExperienceFormSetHelper, ProjectForm, ProjectFormSetHelper, CertificationForm, CertificationFormSetHelper, \
     SkillForm, SkillFormSetHelper, TrainingExperienceForm, TrainingExperienceFormSetHelper, IdCardForm, CardForm, \
-    ContactForm, CardFormSetHelper, ContactFormSetHelper, SalaryFormSetHelper, SalaryForm, WorkProjectFormSetHelper
+    ContactForm, CardFormSetHelper, ContactFormSetHelper, SalaryFormSetHelper, SalaryForm
 from employees.models import Education, WorkExperience, Project, Certification, Skill, TrainingExperience, Card, \
     ContactPerson, Salary, WorkProject
 

@@ -388,7 +388,7 @@ class DailyReport(models.Model):
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     header = models.CharField(max_length=100, verbose_name='日报标题')
-    create_time = models.DateTimeField(auto_now_add=True)
+    create_time = models.DateTimeField(verbose_name='时间')
     report_content = tinymce.models.HTMLField(verbose_name='日报内容')
     assess = tinymce.models.HTMLField(verbose_name='评价内容')
     score = models.IntegerField(choices=SCORE_CHOICES, verbose_name='评价等级')

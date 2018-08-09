@@ -34,15 +34,14 @@ INSTALLED_APPS = [
     'employees',
     'employees.apps.SuitConfig',
     # 'suit',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'crispy_forms',
+    'suit_redactor',
 ]
 
 MIDDLEWARE = [
@@ -141,9 +140,3 @@ MEDIA_ROOT = (
 )
 
 MEDIA_URL = '/upload/'
-
-TINYMCE_DEFAULT_CONFIG = {
-    'theme': 'advanced',
-    'width': 600,
-    'height': 400
-}

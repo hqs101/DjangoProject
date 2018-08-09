@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'adminlte/lib/base.html' %}
 
 {% block title %}Profile{% endblock %}
 
@@ -37,7 +37,7 @@
         <button type="button" class="btn btn-primary btn-block mt-2 btn-add">添加学历信息</button>
         <h3 class="text-md-center">培训经历</h3>
         {% crispy training_experience_form training_experience_forms_helper %}
-        <button type="button" class="btn btn-primary btn-block mt-2 btn-add"">添加培训经历</button>
+        <button type="button" class="btn btn-primary btn-block mt-2 btn-add">添加培训经历</button>
         <h3 class="text-md-center">工作经历</h3>
         <div class="alert alert-info text-md-left" role="alert">
           包含工作经历、实习经历、社会实践经历和校园实践经历等
